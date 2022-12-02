@@ -17,6 +17,7 @@ namespace AvaloniaApp
         [STAThread]
         public static void Main(string[] args)
         {
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             bool externalMessagePump = args.Contains("--external-message-pump");
             string basePath = AppContext.BaseDirectory;
             string cefPath = Path.Combine(basePath, "cef");
@@ -40,6 +41,11 @@ namespace AvaloniaApp
 
             BuildAvaloniaApp()
             .StartWithClassicDesktopLifetime(args);
+        }
+
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Console.WriteLine(e.ExceptionObject.ToString());
         }
 
         // Avalonia configuration, don't remove; also used by visual designer.
