@@ -18,7 +18,8 @@ namespace AvaloniaApp
         public static void Main(string[] args)
         {
             bool externalMessagePump = args.Contains("--external-message-pump");
-            string cefPath = @"D:\FTP\cefwin";
+            string basePath = AppContext.BaseDirectory;
+            string cefPath = Path.Combine(basePath, "cef");
             //Cef 
             var settings = new CefSettings();
             settings.Locale = "zh-CN";
@@ -31,8 +32,10 @@ namespace AvaloniaApp
             settings.LogSeverity = CefLogSeverity.Warning;
             settings.UncaughtExceptionStackSize = 8;
             settings.CommandLineArgsDisabled = true;
-            var app = new CefNetApplication();
+            var app = new CefAppImpl();
+
             KeycodeConverter.Default = new FixChineseInputKeycodeConverter();
+
             app.Initialize(PlatformInfo.IsMacOS ? cefPath : cefPath, settings);//Path.Combine(cefPath, "Release")
 
             BuildAvaloniaApp()

@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Platform;
 
 namespace AvaloniaApp
 {
@@ -19,6 +20,16 @@ namespace AvaloniaApp
             }
 
             base.OnFrameworkInitializationCompleted();
+        }
+
+        /// <summary>
+        /// 重写RegisterServices()函数，将我们自定义的字体管理对象注册进去
+        /// override RegisterServices register custom service
+        /// </summary>
+        public override void RegisterServices()
+        {
+            AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(new CustomFontManagerImpl());
+            base.RegisterServices();
         }
     }
 }
