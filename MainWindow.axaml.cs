@@ -10,7 +10,8 @@ namespace AvaloniaApp
         {
             InitializeComponent();
             tb.FontFamily = FontFamily;
-            var view = new WebView();
+            //var view = new WebView();
+            var view = new CustomWebView();
             view.InitialUrl = "https://www.baidu.com";
             web.Children.Add(view);
         }
